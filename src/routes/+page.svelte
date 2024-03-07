@@ -1,2 +1,17 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js">
+
+
+
+    import ThreeScene from '$lib/components/ThreeScene.svelte';
+    
+  
+  </script>
+  
+  
+  
+  
+  
+    
+  
+      <ThreeScene />
+  
