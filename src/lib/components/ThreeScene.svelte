@@ -1126,7 +1126,7 @@ E-Commerce
   }
 
   function createSide(element, idx, size) {
-    element.style.width = `${size +500}px`;
+    element.style.width = `${size +900}px`;
     element.style.height = `${size + 400}px`;
 
     element.style.display = "flex";
