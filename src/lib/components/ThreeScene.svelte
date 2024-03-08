@@ -1138,13 +1138,13 @@ E-Commerce
     document.body.style.backgroundColor = "#000";
     document.body.style.color = "#fff";
 
-    const relativeSize = size / 2700;
+    const relativeSize = 3000 / 2700;
     element.style.fontSize = `${relativeSize * 50}px`;
 
     element.style.background = "rgba(0, 0, 0,0)";
 
     const object = new CSS3DObject(element);
-    const offset = size / 2;
+    const offset = 3000 / 2;
     object.position.set(
       idx === 4 ? offset : idx === 5 ? -offset : 0,
       idx === 2 ? offset : idx === 3 ? -offset : 0,
