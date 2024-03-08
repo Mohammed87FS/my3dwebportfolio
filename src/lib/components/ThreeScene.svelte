@@ -1259,7 +1259,7 @@ E-Commerce
     controls.maxPolarAngle = Math.PI / 2; // Maximum vertical rotation angle
 
     controls.minDistance = 2980; // Minimum distance to target (zoom in boundary)
-    controls.maxDistance = 4500;
+    controls.maxDistance = 7500;
   }
 
   function animate(webGLRenderer) {
