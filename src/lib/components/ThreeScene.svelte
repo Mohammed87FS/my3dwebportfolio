@@ -1088,7 +1088,7 @@ E-Commerce
     object.position.z = cubeSize / 2;
     cube.add(object);
 
-    createSide(frontSide, 0, cubeSize);
+    createSide(frontSide, 0);
   }
 
   let activeSection = "";
@@ -1125,9 +1125,9 @@ E-Commerce
     }
   }
 
-  function createSide(element, idx, size) {
-    // element.style.width = `${size +900}px`;
-    element.style.height = `${size + 400}px`;
+  function createSide(element, idx) {
+    element.style.width = `${3700}px`;
+    element.style.height = `${3700}px`;
 
     element.style.display = "flex";
     element.style.flexDirection = "column";
