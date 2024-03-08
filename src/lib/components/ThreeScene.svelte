@@ -968,7 +968,7 @@ E-Commerce
       "/ibm.glb",
       function (gltf) {
         computer = gltf.scene;
-        computer.position.set(-300, -2800, 1200); // Adjust position as needed
+          computer.position.set(-300, -2800,700);// Adjust position as needed
         computer.scale.set(7500, 6900, 3500); // Adjust scale as needed
         computer.rotation.y = -0.04;
 
@@ -1259,7 +1259,7 @@ E-Commerce
     controls.maxPolarAngle = Math.PI / 2; // Maximum vertical rotation angle
 
     controls.minDistance = 2980; // Minimum distance to target (zoom in boundary)
-    controls.maxDistance = 7500;
+    controls.maxDistance = 4500;
   }
 
   function animate(webGLRenderer) {
