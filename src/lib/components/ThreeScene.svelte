@@ -1245,7 +1245,7 @@ E-Commerce
   }
 
   function camerSetUp() {
-    camera = new THREE.PerspectiveCamera(75, width / height, 1, 20000);
+    camera = new THREE.PerspectiveCamera(75, width / height, 1, 200000);
     camera.position.z = cameraDistance;
     camera.position.y = cameraDistance;
     camera.position.x = -cameraDistance;
