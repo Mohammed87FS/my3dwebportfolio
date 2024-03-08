@@ -1168,7 +1168,7 @@ E-Commerce
       .normalize();
 
     // Adjust the threshold based on your desired sensitivity
-    const threshold = 0.5; // Adjust this value as needed
+    const threshold = 0.1; // Adjust this value as needed
 
     if (screenNormal.dot(cameraDirection) > threshold) {
       // Camera is facing the screen
