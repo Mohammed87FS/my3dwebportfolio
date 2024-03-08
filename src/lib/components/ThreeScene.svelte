@@ -968,7 +968,7 @@ E-Commerce
       "/ibm.glb",
       function (gltf) {
         computer = gltf.scene;
-          computer.position.set(-300, -2800,700);// Adjust position as needed
+        computer.position.set(-300, -2800,1200); // Adjust position as needed
         computer.scale.set(7500, 6900, 3500); // Adjust scale as needed
         computer.rotation.y = -0.04;
 
@@ -1070,7 +1070,7 @@ E-Commerce
 
   function createCube() {
     cube = new THREE.Group();
-  cube.position.set(-2050, -500, -200);
+    cube.position.set(-150, -500, -200);
     scene.add(cube);
 
     frontSide = document.createElement("div");
@@ -1126,7 +1126,8 @@ E-Commerce
   }
 
   function createSide(element, idx, size) {
-
+    element.style.width = `${size +500}px`;
+    element.style.height = `${size + 400}px`;
 
     element.style.display = "flex";
     element.style.flexDirection = "column";
@@ -1244,7 +1245,7 @@ E-Commerce
   }
 
   function camerSetUp() {
-    camera = new THREE.PerspectiveCamera(75, width / height, 1, 200000);
+    camera = new THREE.PerspectiveCamera(75, width / height, 1, 20000);
     camera.position.z = cameraDistance;
     camera.position.y = cameraDistance;
     camera.position.x = -cameraDistance;
