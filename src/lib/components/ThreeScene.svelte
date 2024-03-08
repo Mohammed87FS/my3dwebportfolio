@@ -1070,7 +1070,7 @@ E-Commerce
 
   function createCube() {
     cube = new THREE.Group();
-    cube.position.set(-150, -500, -200);
+  cube.position.set(-2050, -500, -200);
     scene.add(cube);
 
     frontSide = document.createElement("div");
