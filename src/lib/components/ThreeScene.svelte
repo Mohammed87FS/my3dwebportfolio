@@ -1144,7 +1144,7 @@ E-Commerce
     element.style.background = "rgba(0, 0, 0,0)";
 
     const object = new CSS3DObject(element);
-    const offset = 3000 / 2;
+    const offset = 3000;
     object.position.set(
       idx === 4 ? offset : idx === 5 ? -offset : 0,
       idx === 2 ? offset : idx === 3 ? -offset : 0,
