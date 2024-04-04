@@ -97,17 +97,20 @@ export  const skillsContent = `
     <ul style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px; ">
         <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;"><strong style="color: #FFD700;">Programming-Skills:</strong>
             <ul>
-                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">JavaScript, Node js, Vue, Nuxt, Sveltekit, React, Three js.</li>
+                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">JavaScript, Node js, Vue, Nuxt, React , Sveltekit, Three js.</li>
+                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">PHP, Laravel.</li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">Python.</li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">Java & JavaFx.</li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">Kotlin.</li>
-                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">C & Arduino.</li>
+                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">C, C# & Arduino.</li>
+                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">CSS, LESS & Tailwind.</li>
             </ul>
         </li>
         <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;"><strong strong style="color: #FFD700;"> Other Professional Skills:</strong>
             <ul>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">Agile Methodologies & Team Dynamics.</li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">Mathematics. </li>
+                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">CMS like WordPress </li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">ML. </li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">UI/UX Design.</li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">HCI.</li>
