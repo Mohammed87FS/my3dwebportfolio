@@ -30,7 +30,7 @@
   let cube;
 
 
-
+  let isMobile = false;
   let width;
   let height;
   const start = `
@@ -435,6 +435,9 @@
   /////////////////////////////////////////////////
 
   onMount(() => {
+
+    
+  
     terminal();
     sceneSetup();
     camerSetUp();
@@ -458,26 +461,25 @@
       window.open("https://github.com/Mohammed87FS", "_blank");
     });
     
-    let viewport = { width: window.innerWidth, height: window.innerHeight };
 
-// Update camera and renderer size
-function updateCameraAndViewportSizes() {
-  camera.aspect = viewport.width / viewport.height;
-  camera.updateProjectionMatrix();
-  renderer.setSize(viewport.width, viewport.height);
-  webGLRenderer.setSize(viewport.width, viewport.height);
-}
-function onWindowResize() {
-      viewport = { width: window.innerWidth, height: window.innerHeight };
-      updateCameraAndViewportSizes();
-    }
+    if (typeof window !== 'undefined') {
+      // Update 'isMobile' based on screen width
+      isMobile = window.innerWidth < 768;
 
-    window.addEventListener("resize", onWindowResize);
+      // Optional: Listen for window resize events to handle dynamic changes
+      const handleResize = () => {
+        isMobile = window.innerWidth < 768;
+      };
 
-// Cleanup function to remove event listener when component is unmounted
-return () => {
-  window.removeEventListener("resize", onWindowResize);
-};
+      window.addEventListener('resize', handleResize);
+
+      // Cleanup function
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };}
+
+
+
   
   });
 
@@ -497,6 +499,35 @@ return () => {
 >
   Loading...
 </div>
+
+{#if isMobile}
+<div
+  style="
+    font-family: 'Press Start 2P';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(1vw + 1vh + 1vmin);
+    text-align: center;
+    padding: 5%;
+    box-sizing: border-box;
+    z-index: 9999;
+  "
+  class="terminal"
+  id="loading-screen"
+>
+  This website is meant to be viewed on the desktop version only to enjoy the full experience :)
+</div>
+
+
+{/if}
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -548,6 +579,7 @@ return () => {
 </footer>
 
 <style>
+
   .spacer {
     width: 4%; /* Adjust this width to control the shift */
     height: 100%;
