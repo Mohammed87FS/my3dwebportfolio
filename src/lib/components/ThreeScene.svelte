@@ -20,7 +20,6 @@
   let mouse = new THREE.Vector2();
 
   let frontSide;
-  let isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
   let computer;
   let scene;
@@ -31,7 +30,7 @@
   let cube;
 
 
-
+  let isMobile = false;
   let width;
   let height;
   const start = `
@@ -289,29 +288,32 @@
   }
 
   function updateTextVisibility() {
-  if (!computer) {
-    // console.warn("Model is not loaded yet.");
-    return;
+    if (!computer) {
+      // console.warn("Model is not loaded yet.");
+      return;
+    }
+
+    // Assuming the screen's normal points along the computer model's local Z-axis
+    const screenNormal = new THREE.Vector3(0, 0, 1);
+    screenNormal.applyQuaternion(computer.quaternion); // Apply the object's rotation
+
+    const cameraDirection = new THREE.Vector3()
+      .subVectors(camera.position, computer.position)
+      .normalize();
+
+    // Adjust the threshold based on your desired sensitivity
+    const threshold = 0.1; // Adjust this value as needed
+
+    if (screenNormal.dot(cameraDirection) > threshold) {
+      // Camera is facing the screen
+      frontSide.style.opacity = "1";
+      frontSide.style.visibility = "visible";
+    } else {
+      // Camera is not facing the screen
+      frontSide.style.opacity = "0";
+      // frontSide.style.visibility = "hidden";
+    }
   }
-
-  // Assuming the screen's normal points along the computer model's local Z-axis
-  const screenNormal = new THREE.Vector3(0, 0, 1);
-  screenNormal.applyQuaternion(computer.quaternion); // Apply the object's rotation
-
-  const cameraDirection = new THREE.Vector3()
-    .subVectors(camera.position, computer.position)
-    .normalize();
-
-  // Adjust the threshold based on your desired sensitivity
-  const threshold = isMobile ? 0.0 : 0.5; // Reduce threshold on mobile devices to make it more sensitive
-
-  // For mobile devices, always show the text since the orientation can be more varied
-  const shouldShowText = isMobile || screenNormal.dot(cameraDirection) > threshold;
-
-  frontSide.style.opacity = shouldShowText ? "1" : "0";
-  frontSide.style.visibility = shouldShowText ? "visible" : "hidden";
-}
-
 
   function sceneSetup() {
     // updateCameraPositions();
