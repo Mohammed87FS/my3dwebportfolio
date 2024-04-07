@@ -526,34 +526,7 @@ function createSide(element, idx) {
   Loading...
 </div>
 
-{#if isMobile}
-<div
-  style="
-    font-family: 'Press Start 2P';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    color: orange;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: calc(1vw + 1vh + 1vmin);
-    text-align: center;
-    padding: 5%;
-    box-sizing: border-box;
-    z-index: 9999;
-  "
-  class="terminal"
-  id="loading-screen"
->
-  This website is meant to be viewed on the desktop version only to enjoy the full experience :)
-</div>
 
-
-{/if}
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
