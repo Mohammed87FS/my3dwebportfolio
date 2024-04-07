@@ -200,8 +200,8 @@
     }
   }
   function createSide(element, idx) {
-    element.style.width = `${3000}px`;
-    element.style.height = `${3700}px`;
+    element.style.width = `${5000}px`;
+    element.style.height = `${5700}px`;
 
     element.style.display = "flex";
     element.style.flexDirection = "column";
