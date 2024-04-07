@@ -306,9 +306,9 @@
   function sceneSetup() {
     // updateCameraPositions();
     // createMirror()
-    width = container.clientWidth;
-    height = container.clientHeight;
-
+    width = 1675
+    height = 790
+console.log(width,height)
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
 
@@ -318,7 +318,7 @@
     container.appendChild(webGLRenderer.domElement);
 
     renderer = new CSS3DRenderer();
-    renderer.setSize(1000, 1000);
+    renderer.setSize(width, height);
     renderer.domElement.style.position = "absolute";
     container.appendChild(renderer.domElement);
 
