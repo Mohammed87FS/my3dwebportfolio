@@ -504,7 +504,7 @@
   Loading...
 </div>
 
-{#if isMobile}
+<!-- {#if isMobile}
 <div
   style="
     font-family: 'Press Start 2P';
@@ -531,7 +531,7 @@
 </div>
 
 
-{/if}
+{/if} -->
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
