@@ -273,7 +273,7 @@
   element.style.alignItems = "center";
   element.style.textAlign = "center";
   element.style.color = "#87CEFA";
-  element.style.border = "2px solid #000000";
+  element.style.border = "20px solid #000000";
   
   // Assume a fixed font size or adjust based on screen model dimensions
   element.style.fontSize = '12px'; // Adjust as needed
