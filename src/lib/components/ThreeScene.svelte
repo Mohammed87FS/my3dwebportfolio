@@ -260,44 +260,56 @@
   }
 
   function createSide(element, idx) {
-  // Use viewport units for a more responsive design
-  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-  const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-  
-  // Define sizes relative to viewport size for better scaling on different devices
-  element.style.width = `${vw * 0.8}px`; // 80% of the viewport width
-  element.style.height = `${vh * 0.8}px`; // 80% of the viewport height
-  
-  // Responsive font size using viewport units
-  const fontSize = Math.min(vw, vh) / 30; // Smaller of viewport width or height divided by 30
-  
-  // Set element styles
+  // Get the dimensions of the computer screen (assumed to be the same size as the CSS3DObject)
+  // These values should be set to match the actual size of the computer model's screen in your scene
+  const screenModelWidth = 700; // Width of the computer screen in your 3D model space
+  const screenModelHeight = 500; // Height of the computer screen in your 3D model space
+
+  // Set the content to fit the screen of the computer model
+  element.style.width = `${screenModelWidth}px`;
+  element.style.height = `${screenModelHeight}px`;
+
+  // Other styles as required (unchanged)
   element.style.display = "flex";
   element.style.flexDirection = "column";
-  element.style.justifyContent = "center"; // Center content vertically
-  element.style.alignItems = "center"; // Center content horizontally
-  element.style.textAlign = "center"; // Center text
+  element.style.justifyContent = "center";
+  element.style.alignItems = "center";
+  element.style.textAlign = "center";
   element.style.color = "#87CEFA";
-  element.style.fontSize = `${fontSize}px`; // Apply responsive font size
+  
+  // Assume a fixed font size or adjust based on screen model dimensions
+  element.style.fontSize = '12px'; // Adjust as needed
+
   element.style.background = "rgba(0, 0, 0, 0)";
 
-  // Create a new 3D object with the element
+  // Create a new CSS3DObject and add it to the scene
   const object = new CSS3DObject(element);
-  
-  // Calculate a dynamic offset based on the element size, ensuring it's always within view
-  const offset = Math.min(vw, vh) * 0.8;
-  // Set up positions based on index, adjust for mobile layout if needed
-  object.position.set(
-    idx === 4 ? offset : idx === 5 ? -offset : 0,
-    idx === 2 ? offset : idx === 3 ? -offset : 0,
-    idx === 0 ? offset : idx === 1 ? -offset : 0
-  );
-  
-  // Set rotation
-  object.rotation.y = idx === 4 ? Math.PI / 2 : idx === 5 ? -Math.PI / 2 : 0;
-  
-  // Add object to the scene (assumed to be a global or higher scope variable)
+  object.position.z = cubeSize / 2; // Position it in front of the computer model
+
+  // Add a check here to scale and position the object based on whether the scene is viewed on mobile
+  if (isMobile) {
+    // Adjust scale and position for mobile if necessary
+    const scaleFactor = calculateScaleFactor(screenModelWidth, screenModelHeight);
+    object.scale.set(scaleFactor, scaleFactor, scaleFactor);
+    // Reposition to fit within the computer model screen space
+    object.position.set(computer.position.x, computer.position.y, computer.position.z);
+  }
+
+  // Add the object to the scene
   scene.add(object);
+}
+
+function calculateScaleFactor(screenModelWidth, screenModelHeight) {
+  // Calculate the scale factor based on the device screen size and the model screen size
+  const deviceWidth = window.innerWidth;
+  const deviceHeight = window.innerHeight;
+
+  // Calculate scale factors for both dimensions
+  const scaleX = deviceWidth / screenModelWidth;
+  const scaleY = deviceHeight / screenModelHeight;
+
+  // Return the smaller of the two scale factors to ensure content fits within screen bounds
+  return Math.min(scaleX, scaleY);
 }
 
 
