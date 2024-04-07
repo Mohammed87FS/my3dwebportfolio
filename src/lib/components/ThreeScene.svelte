@@ -26,7 +26,7 @@
   let renderer;
 
   const cubeSize = 3000;
-  const cameraDistance = cubeSize * 2;
+  const cameraDistance = cubeSize * 4;
   let cube;
 
 
