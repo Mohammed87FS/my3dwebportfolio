@@ -203,17 +203,15 @@
   function createCube() {
     cube = new THREE.Group();
     cube.position.set(-150, -500, -200);
-    
     scene.add(cube);
-
 
     frontSide = document.createElement("div");
     frontSide.className = "cube-side front-side";
 
     ////// fade out fade in
-    frontSide.style.opacity = "1";
+    frontSide.style.opacity = "0";
 
-    frontSide.style.visibility = "visible";
+    frontSide.style.visibility = "hidden";
     frontSide.style.transition = "opacity 0.3s ease-in-out";
 
     updateFrontSideContent(start);
@@ -224,7 +222,6 @@
 
     createSide(frontSide, 0);
   }
-
 
   let activeSection = "";
 
@@ -260,58 +257,33 @@
   }
 
   function createSide(element, idx) {
-  // Get the dimensions of the computer screen (assumed to be the same size as the CSS3DObject)
-  // These values should be set to match the actual size of the computer model's screen in your scene
-  const screenModelWidth = 700; // Width of the computer screen in your 3D model space
-  const screenModelHeight = 500; // Height of the computer screen in your 3D model space
+    element.style.width = `${3000}px`;
+    element.style.height = `${3700}px`;
 
-  // Set the content to fit the screen of the computer model
-  element.style.width = `${screenModelWidth}px`;
-  element.style.height = `${screenModelHeight}px`;
+    element.style.display = "flex";
+    element.style.flexDirection = "column";
 
-  // Other styles as required (unchanged)
-  element.style.display = "flex";
-  element.style.flexDirection = "column";
-  element.style.justifyContent = "center";
-  element.style.alignItems = "center";
-  element.style.textAlign = "center";
-  element.style.color = "#87CEFA";
-  element.style.border = "200px solid #000000"; 
-  // Assume a fixed font size or adjust based on screen model dimensions
-  element.style.fontSize = '12px'; // Adjust as needed
+    element.style.textAlign = "start";
+    element.style.color = "#87CEFA";
+    document.body.style.fontFamily = "'Press Start 2P', cursive";
+    document.body.style.backgroundColor = "#000";
+    document.body.style.color = "#fff";
+    element.style.border = "50px solid #FFFFFF"; 
 
-  element.style.background = "rgba(0, 0, 0, 0)";
+    const relativeSize = 3000 / 2700;
+    element.style.fontSize = `${relativeSize * 50}px`;
 
-  // Create a new CSS3DObject and add it to the scene
-  const object = new CSS3DObject(element);
-  object.position.z = cubeSize / 2; // Position it in front of the computer model
+    element.style.background = "rgba(0, 0, 0,0)";
 
-  // Add a check here to scale and position the object based on whether the scene is viewed on mobile
-  if (isMobile) {
-    // Adjust scale and position for mobile if necessary
-    const scaleFactor = calculateScaleFactor(screenModelWidth, screenModelHeight);
-    object.scale.set(scaleFactor, scaleFactor, scaleFactor);
-    // Reposition to fit within the computer model screen space
-    object.position.set(computer.position.x, computer.position.y, computer.position.z);
+    const object = new CSS3DObject(element);
+    const offset = 3000;
+    object.position.set(
+      idx === 4 ? offset : idx === 5 ? -offset : 0,
+      idx === 2 ? offset : idx === 3 ? -offset : 0,
+      idx === 0 ? offset : idx === 1 ? -offset : 0,
+    );
+    object.rotation.y = idx === 4 ? Math.PI / 2 : idx === 5 ? -Math.PI / 2 : 0;
   }
-
-  // Add the object to the scene
-  scene.add(object);
-}
-
-function calculateScaleFactor(screenModelWidth, screenModelHeight) {
-  // Calculate the scale factor based on the device screen size and the model screen size
-  const deviceWidth = window.innerWidth;
-  const deviceHeight = window.innerHeight;
-
-  // Calculate scale factors for both dimensions
-  const scaleX = deviceWidth / screenModelWidth;
-  const scaleY = deviceHeight / screenModelHeight;
-
-  // Return the smaller of the two scale factors to ensure content fits within screen bounds
-  return Math.min(scaleX, scaleY);
-}
-
 
   function updateTextVisibility() {
     if (!computer) {
@@ -328,7 +300,7 @@ function calculateScaleFactor(screenModelWidth, screenModelHeight) {
       .normalize();
 
     // Adjust the threshold based on your desired sensitivity
-    const threshold = 0.1; // Adjust this value as needed
+    const threshold = 0.5; // Adjust this value as needed
 
     if (screenNormal.dot(cameraDirection) > threshold) {
       // Camera is facing the screen
@@ -418,8 +390,8 @@ function calculateScaleFactor(screenModelWidth, screenModelHeight) {
     controls.minPolarAngle = 0; // Minimum vertical rotation angle
     controls.maxPolarAngle = Math.PI / 2; // Maximum vertical rotation angle
 
-    controls.minDistance = 1980; // Minimum distance to target (zoom in boundary)
-    controls.maxDistance = 9500;
+    controls.minDistance = 2980; // Minimum distance to target (zoom in boundary)
+    controls.maxDistance = 4500;
   }
 
   function animate(webGLRenderer) {
@@ -472,7 +444,6 @@ function calculateScaleFactor(screenModelWidth, screenModelHeight) {
     camerSetUp();
     // createButtons();
     createCube();
-    // createCube2()
     load3DModel();
 
     animate(webGLRenderer);
@@ -533,7 +504,7 @@ function calculateScaleFactor(screenModelWidth, screenModelHeight) {
   Loading...
 </div>
 
-<!-- {#if isMobile}
+{#if isMobile}
 <div
   style="
     font-family: 'Press Start 2P';
@@ -560,7 +531,7 @@ function calculateScaleFactor(screenModelWidth, screenModelHeight) {
 </div>
 
 
-{/if} -->
+{/if}
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
