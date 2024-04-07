@@ -208,23 +208,20 @@
     frontSide = document.createElement("div");
     frontSide.className = "cube-side front-side";
 
-    // Style transitions for fade effect
+    ////// fade out fade in
     frontSide.style.opacity = "0";
+
     frontSide.style.visibility = "hidden";
     frontSide.style.transition = "opacity 0.3s ease-in-out";
 
-    // Prepare the frontSide content before adding it
-    updateFrontSideContent(start); // Ensure this function updates the content appropriately
+    updateFrontSideContent(start);
 
-    // Create the CSS3DObject and add it to the cube
     const object = new CSS3DObject(frontSide);
     object.position.z = cubeSize / 2;
     cube.add(object);
 
-    // Now, call createSide to adjust the frontSide's size and other styles
     createSide(frontSide, 0);
-}
-
+  }
 
   let activeSection = "";
 
@@ -259,59 +256,56 @@
     }
   }
 
-  function createSide(element, idx) {
-  // Set the dimensions of the element
-  const screenModelWidth = 700; // Width of the computer screen model
-  const screenModelHeight = 500; // Height of the computer screen model
+  function updateContentForElement(contentTemplate, elementWidth) {
+  const baseFontSize = 4.6; // Original font size in rem
+  const baseWidth = 2700; // The width for which the original font size was designed
+  const scaleFactor = elementWidth / baseWidth; // Calculate the scale factor based on the new width
 
-  element.style.width = `${screenModelWidth}px`;
-  element.style.height = `${screenModelHeight}px`;
+  // Update the base font size and the text shadow size according to the scale factor
+  const updatedContent = contentTemplate
+    .replace(/{BASE_FONT_SIZE}/g, (baseFontSize * scaleFactor).toFixed(2))
+    .replace(/{TEXT_SHADOW}/g, Array.from({ length: 15 }, (_, i) => `${(i + 1) * scaleFactor}px ${(i + 1) * scaleFactor}px 0 #FF0000`).join(', '));
 
-  // Prevent content overflow
-  element.style.overflow = 'hidden'; // Add this line to prevent overflow
+  return updatedContent;
+}
 
-  // Set other styles (unchanged)
+
+function createSide(element, idx) {
+  const elementWidth = 6000; // Set the width of the element
+  const elementHeight = 6700; // Set the height of the element
+
+  element.style.width = `${elementWidth}px`;
+  element.style.height = `${elementHeight}px`;
+
   element.style.display = "flex";
   element.style.flexDirection = "column";
-  element.style.justifyContent = "center";
-  element.style.alignItems = "center";
-  element.style.textAlign = "center";
+  element.style.textAlign = "start";
   element.style.color = "#87CEFA";
-  element.style.border = "20px solid #000000";
+  document.body.style.fontFamily = "'Press Start 2P', cursive";
+  document.body.style.backgroundColor = "#000";
+  document.body.style.color = "#fff";
+
+  // Update and set the HTML content with dynamic font sizes
+  const updatedContent = updateContentForElement(Fortress, elementWidth);
+  element.innerHTML = updatedContent;
+
+  // Set other styles and positions as necessary
   element.style.background = "rgba(0, 0, 0, 0)";
 
-  // Adjust font size based on the size of the element (optional)
-  const fontSize = Math.min(screenModelWidth, screenModelHeight) / 50; // Example calculation
-  element.style.fontSize = `${fontSize}px`;
-
-  // Create a new CSS3DObject and add it to the scene
+  // Your existing code for setting up the CSS3DObject and its position
+  // This part remains unchanged
   const object = new CSS3DObject(element);
-  object.position.z = cubeSize / 2; // Position it in front of the computer model
+  const offset = 3000;
+  object.position.set(
+    idx === 4 ? offset : idx === 5 ? -offset : 0,
+    idx === 2 ? offset : idx === 3 ? -offset : 0,
+    idx === 0 ? offset : idx === 1 ? -offset : 0,
+  );
+  object.rotation.y = idx === 4 ? Math.PI / 2 : idx === 5 ? -Math.PI / 2 : 0;
 
-  // Scale and position adjustments for mobile
-  if (isMobile) {
-    const scaleFactor = calculateScaleFactor(screenModelWidth, screenModelHeight);
-    object.scale.set(scaleFactor, scaleFactor, scaleFactor);
-    object.position.set(computer.position.x, computer.position.y, computer.position.z);
-  }
-
-  // Add the object to the scene
-  scene.add(object);
+  // Don't forget to append 'object' to your scene or parent object in your 3D scene setup
 }
 
-
-function calculateScaleFactor(screenModelWidth, screenModelHeight) {
-  // Calculate the scale factor based on the device screen size and the model screen size
-  const deviceWidth = window.innerWidth;
-  const deviceHeight = window.innerHeight;
-
-  // Calculate scale factors for both dimensions
-  const scaleX = deviceWidth / screenModelWidth;
-  const scaleY = deviceHeight / screenModelHeight;
-
-  // Return the smaller of the two scale factors to ensure content fits within screen bounds
-  return Math.min(scaleX, scaleY);
-}
 
   function updateTextVisibility() {
     if (!computer) {
@@ -532,7 +526,7 @@ function calculateScaleFactor(screenModelWidth, screenModelHeight) {
   Loading...
 </div>
 
-<!-- {#if isMobile}
+{#if isMobile}
 <div
   style="
     font-family: 'Press Start 2P';
@@ -559,7 +553,7 @@ function calculateScaleFactor(screenModelWidth, screenModelHeight) {
 </div>
 
 
-{/if} -->
+{/if}
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
