@@ -199,29 +199,47 @@
       }, 0);
     }
   }
+  function createSide(element, idx) {
+    element.style.width = `${3000}px`;
+    element.style.height = `${3700}px`;
 
+    element.style.display = "flex";
+    element.style.flexDirection = "column";
+
+    element.style.textAlign = "start";
+    element.style.color = "#87CEFA";
+    document.body.style.fontFamily = "'Press Start 2P', cursive";
+    document.body.style.backgroundColor = "#000";
+    document.body.style.color = "#fff";
+
+    const relativeSize = 3000 / 2700;
+    element.style.fontSize = `${relativeSize * 50}px`;
+
+    element.style.background = "rgba(0, 0, 0,0)";
+
+ 
+  }
   function createCube() {
     cube = new THREE.Group();
     cube.position.set(-150, -500, -200);
     scene.add(cube);
+   frontSide = document.createElement("div");
+   frontSide.className = "cube-side front-side";
 
-    frontSide = document.createElement("div");
-    frontSide.className = "cube-side front-side";
+   ////// fade out fade in
+   frontSide.style.opacity = "0";
 
-    ////// fade out fade in
-    frontSide.style.opacity = "0";
+   frontSide.style.visibility = "hidden";
+   frontSide.style.transition = "opacity 0.3s ease-in-out";
 
-    frontSide.style.visibility = "hidden";
-    frontSide.style.transition = "opacity 0.3s ease-in-out";
+   updateFrontSideContent(start);
 
-    updateFrontSideContent(start);
-
-    const object = new CSS3DObject(frontSide);
+   const object = new CSS3DObject(frontSide);
     object.position.z = cubeSize / 2;
     cube.add(object);
+   createSide(frontSide, 0);
+ }
 
-    createSide(frontSide, 0);
-  }
 
   let activeSection = "";
 
@@ -256,55 +274,6 @@
     }
   }
 
-  function updateContentForElement(contentTemplate, elementWidth) {
-  const baseFontSize = 4.6; // Original font size in rem
-  const baseWidth = 2700; // The width for which the original font size was designed
-  const scaleFactor = elementWidth / baseWidth; // Calculate the scale factor based on the new width
-
-  // Update the base font size and the text shadow size according to the scale factor
-  const updatedContent = contentTemplate
-    .replace(/{BASE_FONT_SIZE}/g, (baseFontSize * scaleFactor).toFixed(2))
-    .replace(/{TEXT_SHADOW}/g, Array.from({ length: 15 }, (_, i) => `${(i + 1) * scaleFactor}px ${(i + 1) * scaleFactor}px 0 #FF0000`).join(', '));
-
-  return updatedContent;
-}
-
-
-function createSide(element, idx) {
-  const elementWidth = 6000; // Set the width of the element
-  const elementHeight = 6700; // Set the height of the element
-
-  element.style.width = `${elementWidth}px`;
-  element.style.height = `${elementHeight}px`;
-
-  element.style.display = "flex";
-  element.style.flexDirection = "column";
-  element.style.textAlign = "start";
-  element.style.color = "#87CEFA";
-  document.body.style.fontFamily = "'Press Start 2P', cursive";
-  document.body.style.backgroundColor = "#000";
-  document.body.style.color = "#fff";
-
-  // Update and set the HTML content with dynamic font sizes
-  const updatedContent = updateContentForElement(Fortress, elementWidth);
-  element.innerHTML = updatedContent;
-
-  // Set other styles and positions as necessary
-  element.style.background = "rgba(0, 0, 0, 0)";
-
-  // Your existing code for setting up the CSS3DObject and its position
-  // This part remains unchanged
-  const object = new CSS3DObject(element);
-  const offset = 3000;
-  object.position.set(
-    idx === 4 ? offset : idx === 5 ? -offset : 0,
-    idx === 2 ? offset : idx === 3 ? -offset : 0,
-    idx === 0 ? offset : idx === 1 ? -offset : 0,
-  );
-  object.rotation.y = idx === 4 ? Math.PI / 2 : idx === 5 ? -Math.PI / 2 : 0;
-
-  // Don't forget to append 'object' to your scene or parent object in your 3D scene setup
-}
 
 
   function updateTextVisibility() {
@@ -526,7 +495,34 @@ function createSide(element, idx) {
   Loading...
 </div>
 
+{#if isMobile}
+<div
+  style="
+    font-family: 'Press Start 2P';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(1vw + 1vh + 1vmin);
+    text-align: center;
+    padding: 5%;
+    box-sizing: border-box;
+    z-index: 9999;
+  "
+  class="terminal"
+  id="loading-screen"
+>
+  This website is meant to be viewed on the desktop version only to enjoy the full experience :)
+</div>
 
+
+{/if}
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
