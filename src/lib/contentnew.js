@@ -1,7 +1,7 @@
 export const welcome = `
 
 
-<h1 style="  text-align: center; text-transform: uppercase;font-family: 'Press Start 2P', cursive; margin-top: 600px; font-size: 12rem;  color: #FFAA00; text-shadow: 
+<h1 style="  text-align: center; text-transform: uppercase;font-family: 'Press Start 2P', cursive; margin-top: 600px; font-size: 2rem;  color: #FFAA00; text-shadow: 
     1px 1px 0 #FF0000, 
     2px 2px 0 #FF0000, 
     3px 3px 0 #FF0000, 
