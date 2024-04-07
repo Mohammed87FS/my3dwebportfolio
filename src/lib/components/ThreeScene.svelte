@@ -208,20 +208,23 @@
     frontSide = document.createElement("div");
     frontSide.className = "cube-side front-side";
 
-    ////// fade out fade in
+    // Style transitions for fade effect
     frontSide.style.opacity = "0";
-
     frontSide.style.visibility = "hidden";
     frontSide.style.transition = "opacity 0.3s ease-in-out";
 
-    updateFrontSideContent(start);
+    // Prepare the frontSide content before adding it
+    updateFrontSideContent(start); // Ensure this function updates the content appropriately
 
+    // Create the CSS3DObject and add it to the cube
     const object = new CSS3DObject(frontSide);
     object.position.z = cubeSize / 2;
     cube.add(object);
 
+    // Now, call createSide to adjust the frontSide's size and other styles
     createSide(frontSide, 0);
-  }
+}
+
 
   let activeSection = "";
 
@@ -257,16 +260,17 @@
   }
 
   function createSide(element, idx) {
-  // Get the dimensions of the computer screen (assumed to be the same size as the CSS3DObject)
-  // These values should be set to match the actual size of the computer model's screen in your scene
-  const screenModelWidth = 700; // Width of the computer screen in your 3D model space
-  const screenModelHeight = 500; // Height of the computer screen in your 3D model space
+  // Set the dimensions of the element
+  const screenModelWidth = 700; // Width of the computer screen model
+  const screenModelHeight = 500; // Height of the computer screen model
 
-  // Set the content to fit the screen of the computer model
   element.style.width = `${screenModelWidth}px`;
   element.style.height = `${screenModelHeight}px`;
 
-  // Other styles as required (unchanged)
+  // Prevent content overflow
+  element.style.overflow = 'hidden'; // Add this line to prevent overflow
+
+  // Set other styles (unchanged)
   element.style.display = "flex";
   element.style.flexDirection = "column";
   element.style.justifyContent = "center";
@@ -274,28 +278,27 @@
   element.style.textAlign = "center";
   element.style.color = "#87CEFA";
   element.style.border = "20px solid #000000";
-  
-  // Assume a fixed font size or adjust based on screen model dimensions
-  element.style.fontSize = '12px'; // Adjust as needed
-
   element.style.background = "rgba(0, 0, 0, 0)";
+
+  // Adjust font size based on the size of the element (optional)
+  const fontSize = Math.min(screenModelWidth, screenModelHeight) / 50; // Example calculation
+  element.style.fontSize = `${fontSize}px`;
 
   // Create a new CSS3DObject and add it to the scene
   const object = new CSS3DObject(element);
   object.position.z = cubeSize / 2; // Position it in front of the computer model
 
-  // Add a check here to scale and position the object based on whether the scene is viewed on mobile
+  // Scale and position adjustments for mobile
   if (isMobile) {
-    // Adjust scale and position for mobile if necessary
     const scaleFactor = calculateScaleFactor(screenModelWidth, screenModelHeight);
     object.scale.set(scaleFactor, scaleFactor, scaleFactor);
-    // Reposition to fit within the computer model screen space
     object.position.set(computer.position.x, computer.position.y, computer.position.z);
   }
 
   // Add the object to the scene
   scene.add(object);
 }
+
 
 function calculateScaleFactor(screenModelWidth, screenModelHeight) {
   // Calculate the scale factor based on the device screen size and the model screen size
