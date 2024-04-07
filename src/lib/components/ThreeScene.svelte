@@ -199,9 +199,9 @@
       }, 0);
     }
   }
-  function createSide(element, idx) {
-    element.style.width = `${5000}px`;
-    element.style.height = `${5700}px`;
+  function createSide(element) {
+    element.style.width = `${3000}px`;
+    element.style.height = `${3700}px`;
 
     element.style.display = "flex";
     element.style.flexDirection = "column";
@@ -212,8 +212,7 @@
     document.body.style.backgroundColor = "#000";
     document.body.style.color = "#fff";
 
-    const relativeSize = 3000 / 2700;
-    element.style.fontSize = `${relativeSize * 50}px`;
+   
 
     element.style.background = "rgba(0, 0, 0,0)";
 
@@ -237,7 +236,7 @@
    const object = new CSS3DObject(frontSide);
     object.position.z = cubeSize / 2;
     cube.add(object);
-   createSide(frontSide, 0);
+   createSide(frontSide);
  }
 
 
@@ -320,7 +319,7 @@
 
     renderer = new CSS3DRenderer();
     renderer.setSize(width, height);
-    renderer.domElement.style.position = "relative";
+    renderer.domElement.style.position = "absolute";
     container.appendChild(renderer.domElement);
 
     const floor = new THREE.Mesh(
@@ -495,7 +494,34 @@
   Loading...
 </div>
 
+<!-- {#if isMobile}
+<div
+  style="
+    font-family: 'Press Start 2P';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(1vw + 1vh + 1vmin);
+    text-align: center;
+    padding: 5%;
+    box-sizing: border-box;
+    z-index: 9999;
+  "
+  class="terminal"
+  id="loading-screen"
+>
+  This website is meant to be viewed on the desktop version only to enjoy the full experience :)
+</div>
 
+
+{/if} -->
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
