@@ -318,7 +318,7 @@
     container.appendChild(webGLRenderer.domElement);
 
     renderer = new CSS3DRenderer();
-    renderer.setSize(width, height);
+    renderer.setSize(1000, 1000);
     renderer.domElement.style.position = "absolute";
     container.appendChild(renderer.domElement);
 
