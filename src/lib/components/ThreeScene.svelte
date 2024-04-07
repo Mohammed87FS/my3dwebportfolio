@@ -437,7 +437,7 @@
     load3DModel();
 
     animate(webGLRenderer);
-    window.addEventListener("resize", () => onWindowResize(webGLRenderer));
+   
     document
       .getElementById("instagramIcon")
       .addEventListener("click", function () {
@@ -455,23 +455,6 @@
     document.getElementById("linked").addEventListener("click", function () {
       window.open("https://www.linkedin.com/in/mohammed-al-hamadani-a88518302/", "_blank");
     });
-
-    if (typeof window !== 'undefined') {
-      // Update 'isMobile' based on screen width
-      isMobile = window.innerWidth < 768;
-
-      // Optional: Listen for window resize events to handle dynamic changes
-      const handleResize = () => {
-        isMobile = window.innerWidth < 768;
-      };
-
-      window.addEventListener('resize', handleResize);
-
-      // Cleanup function
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };}
-
 
 
   
