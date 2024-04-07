@@ -260,32 +260,46 @@
   }
 
   function createSide(element, idx) {
-    element.style.width = `${3000}px`;
-    element.style.height = `${3700}px`;
+  // Use viewport units for a more responsive design
+  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+  const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+  
+  // Define sizes relative to viewport size for better scaling on different devices
+  element.style.width = `${vw * 0.8}px`; // 80% of the viewport width
+  element.style.height = `${vh * 0.8}px`; // 80% of the viewport height
+  
+  // Responsive font size using viewport units
+  const fontSize = Math.min(vw, vh) / 30; // Smaller of viewport width or height divided by 30
+  
+  // Set element styles
+  element.style.display = "flex";
+  element.style.flexDirection = "column";
+  element.style.justifyContent = "center"; // Center content vertically
+  element.style.alignItems = "center"; // Center content horizontally
+  element.style.textAlign = "center"; // Center text
+  element.style.color = "#87CEFA";
+  element.style.fontSize = `${fontSize}px`; // Apply responsive font size
+  element.style.background = "rgba(0, 0, 0, 0)";
 
-    element.style.display = "flex";
-    element.style.flexDirection = "column";
+  // Create a new 3D object with the element
+  const object = new CSS3DObject(element);
+  
+  // Calculate a dynamic offset based on the element size, ensuring it's always within view
+  const offset = Math.min(vw, vh) * 0.8;
+  // Set up positions based on index, adjust for mobile layout if needed
+  object.position.set(
+    idx === 4 ? offset : idx === 5 ? -offset : 0,
+    idx === 2 ? offset : idx === 3 ? -offset : 0,
+    idx === 0 ? offset : idx === 1 ? -offset : 0
+  );
+  
+  // Set rotation
+  object.rotation.y = idx === 4 ? Math.PI / 2 : idx === 5 ? -Math.PI / 2 : 0;
+  
+  // Add object to the scene (assumed to be a global or higher scope variable)
+  scene.add(object);
+}
 
-    element.style.textAlign = "start";
-    element.style.color = "#87CEFA";
-    document.body.style.fontFamily = "'Press Start 2P', cursive";
-    document.body.style.backgroundColor = "#000";
-    document.body.style.color = "#fff";
-
-    const relativeSize = 3000 / 2700;
-    element.style.fontSize = `${relativeSize * 50}px`;
-
-    element.style.background = "rgba(0, 0, 0,0)";
-
-    const object = new CSS3DObject(element);
-    const offset = 3000;
-    object.position.set(
-      idx === 4 ? offset : idx === 5 ? -offset : 0,
-      idx === 2 ? offset : idx === 3 ? -offset : 0,
-      idx === 0 ? offset : idx === 1 ? -offset : 0,
-    );
-    object.rotation.y = idx === 4 ? Math.PI / 2 : idx === 5 ? -Math.PI / 2 : 0;
-  }
 
   function updateTextVisibility() {
     if (!computer) {
