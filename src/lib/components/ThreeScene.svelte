@@ -257,33 +257,58 @@
   }
 
   function createSide(element, idx) {
-    element.style.width = `${3000}px`;
-    element.style.height = `${3700}px`;
+  // Get the dimensions of the computer screen (assumed to be the same size as the CSS3DObject)
+  // These values should be set to match the actual size of the computer model's screen in your scene
+  const screenModelWidth = 700; // Width of the computer screen in your 3D model space
+  const screenModelHeight = 500; // Height of the computer screen in your 3D model space
 
-    element.style.display = "flex";
-    element.style.flexDirection = "column";
+  // Set the content to fit the screen of the computer model
+  element.style.width = `${screenModelWidth}px`;
+  element.style.height = `${screenModelHeight}px`;
 
-    element.style.textAlign = "start";
-    element.style.color = "#87CEFA";
-    document.body.style.fontFamily = "'Press Start 2P', cursive";
-    document.body.style.backgroundColor = "#000";
-    document.body.style.color = "#fff";
-    element.style.border = "50px solid #FFFFFF"; 
+  // Other styles as required (unchanged)
+  element.style.display = "flex";
+  element.style.flexDirection = "column";
+  element.style.justifyContent = "center";
+  element.style.alignItems = "center";
+  element.style.textAlign = "center";
+  element.style.color = "#87CEFA";
+  element.style.border = "2px solid #000000";
+  
+  // Assume a fixed font size or adjust based on screen model dimensions
+  element.style.fontSize = '12px'; // Adjust as needed
 
-    const relativeSize = 3000 / 2700;
-    element.style.fontSize = `${relativeSize * 50}px`;
+  element.style.background = "rgba(0, 0, 0, 0)";
 
-    element.style.background = "rgba(0, 0, 0,0)";
+  // Create a new CSS3DObject and add it to the scene
+  const object = new CSS3DObject(element);
+  object.position.z = cubeSize / 2; // Position it in front of the computer model
 
-    const object = new CSS3DObject(element);
-    const offset = 3000;
-    object.position.set(
-      idx === 4 ? offset : idx === 5 ? -offset : 0,
-      idx === 2 ? offset : idx === 3 ? -offset : 0,
-      idx === 0 ? offset : idx === 1 ? -offset : 0,
-    );
-    object.rotation.y = idx === 4 ? Math.PI / 2 : idx === 5 ? -Math.PI / 2 : 0;
+  // Add a check here to scale and position the object based on whether the scene is viewed on mobile
+  if (isMobile) {
+    // Adjust scale and position for mobile if necessary
+    const scaleFactor = calculateScaleFactor(screenModelWidth, screenModelHeight);
+    object.scale.set(scaleFactor, scaleFactor, scaleFactor);
+    // Reposition to fit within the computer model screen space
+    object.position.set(computer.position.x, computer.position.y, computer.position.z);
   }
+
+  // Add the object to the scene
+  scene.add(object);
+}
+
+function calculateScaleFactor(screenModelWidth, screenModelHeight) {
+  // Calculate the scale factor based on the device screen size and the model screen size
+  const deviceWidth = window.innerWidth;
+  const deviceHeight = window.innerHeight;
+
+  // Calculate scale factors for both dimensions
+  const scaleX = deviceWidth / screenModelWidth;
+  const scaleY = deviceHeight / screenModelHeight;
+
+  // Return the smaller of the two scale factors to ensure content fits within screen bounds
+  return Math.min(scaleX, scaleY);
+}
 
   function updateTextVisibility() {
     if (!computer) {
