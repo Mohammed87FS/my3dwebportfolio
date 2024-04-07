@@ -201,17 +201,35 @@
   }
 
   function createCube() {
-    cube = new THREE.Group();
-    cube.position.set(-150, -500, -200);
-    scene.add(cube);
+ // Create a box geometry for the cube (parameters are the size along x, y, and z axes)
+var geometry = new THREE.BoxGeometry(1000, 1000, 1000);
+
+// Create a material with the desired color (red in this case)
+var material = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+
+// Combine the geometry and the material into a mesh
+var mesh = new THREE.Mesh(geometry, material);
+
+// Set the position of the mesh (optional, in case you want to move it from the origin)
+mesh.position.set(-150, -500, -200);
+
+// Create a group to hold the cube
+var cube = new THREE.Group();
+
+// Add the mesh to the group
+cube.add(mesh);
+
+// Add the group to the scene
+scene.add(cube);
+
 
     frontSide = document.createElement("div");
     frontSide.className = "cube-side front-side";
 
     ////// fade out fade in
-    frontSide.style.opacity = "0";
+    frontSide.style.opacity = "1";
 
-    frontSide.style.visibility = "hidden";
+    frontSide.style.visibility = "visible";
     frontSide.style.transition = "opacity 0.3s ease-in-out";
 
     updateFrontSideContent(start);
@@ -222,6 +240,7 @@
 
     createSide(frontSide, 0);
   }
+
 
   let activeSection = "";
 
@@ -443,6 +462,7 @@
     camerSetUp();
     // createButtons();
     createCube();
+    // createCube2()
     load3DModel();
 
     animate(webGLRenderer);
@@ -503,7 +523,7 @@
   Loading...
 </div>
 
-{#if isMobile}
+<!-- {#if isMobile}
 <div
   style="
     font-family: 'Press Start 2P';
@@ -530,7 +550,7 @@
 </div>
 
 
-{/if}
+{/if} -->
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
