@@ -461,6 +461,9 @@
       window.open("https://github.com/Mohammed87FS", "_blank");
     });
     
+    document.getElementById("linked").addEventListener("click", function () {
+      window.open("https://www.linkedin.com/in/mohammed-al-hamadani-a88518302/", "_blank");
+    });
 
     if (typeof window !== 'undefined') {
       // Update 'isMobile' based on screen width
@@ -567,14 +570,22 @@
   style="width: 100%; height: 88vh;"
 ></div>
 <footer class="footer">
+  <img src="/linked2.svg" alt="linkedin Icon" id="linked" style="cursor:pointer;" />
+
+  <img src="/git.svg" alt="github Icon" id="git" style="cursor:pointer;" />
+
+  <img src="/email.svg" alt="email Icon" id="mail" style="cursor:pointer;" />
   <img
     src="/insta.svg"
     alt="Instagram Icon"
     id="instagramIcon"
     style="cursor:pointer;"
   />
-  <img src="/email.svg" alt="email Icon" id="mail" style="cursor:pointer;" />
-  <img src="/git.svg" alt="github Icon" id="git" style="cursor:pointer;" />
+
+
+
+ 
+
   <div class="spacer"></div>
 </footer>
 
