@@ -392,8 +392,8 @@
     controls.minPolarAngle = 0; // Minimum vertical rotation angle
     controls.maxPolarAngle = Math.PI / 2; // Maximum vertical rotation angle
 
-    controls.minDistance = 2080; // Minimum distance to target (zoom in boundary)
-    controls.maxDistance = 4500;
+    controls.minDistance = 1980; // Minimum distance to target (zoom in boundary)
+    controls.maxDistance = 9500;
   }
 
   function animate(webGLRenderer) {
