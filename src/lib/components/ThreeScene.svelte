@@ -525,7 +525,7 @@
     class="terminal"
     id="loading-screen"
   >
-    This website is meant to be viewed on the desktop version only to enjoy the full experience :)
+This website is designed with a 3D interface best enjoyed on a desktop platform. Thank you :)
   </div>
   
   
