@@ -110,7 +110,7 @@ export  const skillsContent = `
             <ul>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">Agile Methodologies & Team Dynamics.</li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">Mathematics. </li>
-                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">CMS like WordPress </li>
+                <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">CMS (WordPress). </li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">ML. </li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">UI/UX Design.</li>
                 <li style="font-size: 4.6rem; line-height: 1.5; margin-bottom: 10px;">HCI.</li>
