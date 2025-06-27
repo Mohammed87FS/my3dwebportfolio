@@ -163,6 +163,15 @@
 
   function updateFrontSideContent(content) {
     frontSide.innerHTML = content;
+    
+    // Remove all inline font-size styles to allow CSS to take precedence
+    setTimeout(() => {
+      const elementsWithFontSize = frontSide.querySelectorAll('[style*="font-size"]');
+      elementsWithFontSize.forEach(element => {
+        // Remove font-size from style attribute
+        element.style.fontSize = '';
+      });
+    }, 0);
 
     const buttonActions = [
       () => updateFrontSideContent(Fortress),
@@ -261,6 +270,9 @@
   }
 
   function createSide(element, idx) {
+    // Add the cube-side class to ensure CSS styles are applied
+    element.className = element.className + " cube-side";
+    
     element.style.width = `${3000}px`;
     element.style.height = `${3700}px`;
     element.style.maxWidth = '100vw';
@@ -276,9 +288,9 @@
     document.body.style.backgroundColor = "#000";
     document.body.style.color = "#fff";
 
-    // Set a larger base font size for desktop 3D view that works with our responsive content
-    element.style.fontSize = "70px";
-    
+    // Set larger font size for better 3D desktop readability
+    element.style.fontSize = "64px";
+
     element.style.background = "rgba(0, 0, 0,0)";
 
     const object = new CSS3DObject(element);
@@ -562,18 +574,52 @@
     max-width: 100vw;
   }
   
-  /* Responsive content within 3D scene */
+  /* Larger font sizes for better 3D desktop readability */
   :global(.cube-side) {
-    overflow: hidden !important;
-    max-width: 100vw !important;
-    box-sizing: border-box !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    /* Larger readable base font size */
+    font-size: 64px !important;
   }
-  
+
+  /* Target all possible text elements with larger readable sizes */
+  :global(.cube-side h1[style]) {
+    font-size: 96px !important;
+  }
+
+  :global(.cube-side div.content[style]) {
+    font-size: 64px !important;
+  }
+
+  :global(.cube-side ul[style]) {
+    font-size: 64px !important;
+  }
+
+  :global(.cube-side li[style]) {
+    font-size: 64px !important;
+  }
+
+  /* Special styling for projects grid layout */
+  :global(.cube-side div[style*="grid-template-columns"]) {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)) !important;
+    gap: 40px !important;
+  }
+
+  /* Projects button styling for better layout with large fonts */
+  :global(.cube-side button[style*="flex-direction: column"]) {
+    font-size: 48px !important;
+    padding: 2rem !important;
+    min-height: 300px !important;
+  }
+
+  :global(.cube-side button strong) {
+    font-size: 48px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Additional overrides for any remaining elements */
   :global(.cube-side *) {
-    max-width: 100% !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    box-sizing: border-box !important;
+    font-size: inherit !important;
   }
 
   .spacer {
