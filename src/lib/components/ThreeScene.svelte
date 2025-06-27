@@ -29,8 +29,6 @@
   const cameraDistance = cubeSize * 2;
   let cube;
 
-
-  let isMobile = false;
   let width;
   let height;
   const start = `
@@ -122,12 +120,18 @@
       },
       undefined,
       function (error) {
-        console.error(error);
+        console.warn("Could not load 3D model:", error);
+        // Continue without the 3D model - the scene will still work
       },
     );
 
-    function onModelClick(event) {
+  function onModelClick(event) {
       event.preventDefault();
+
+      // Only proceed if raycaster and computer are available
+      if (!raycaster || !computer) {
+        return;
+      }
 
       // Scales mouse coordinates from -1.0 to 1.0 on canvas
       const rect = renderer.domElement.getBoundingClientRect();
@@ -259,6 +263,9 @@
   function createSide(element, idx) {
     element.style.width = `${3000}px`;
     element.style.height = `${3700}px`;
+    element.style.maxWidth = '100vw';
+    element.style.overflow = 'hidden';
+    element.style.boxSizing = 'border-box';
 
     element.style.display = "flex";
     element.style.flexDirection = "column";
@@ -269,9 +276,9 @@
     document.body.style.backgroundColor = "#000";
     document.body.style.color = "#fff";
 
-    const relativeSize = 3000 / 2700;
-    element.style.fontSize = `${relativeSize * 50}px`;
-
+    // Don't override font-size here - let the responsive clamp() values from contentnew.js work
+    // This allows our carefully crafted responsive typography to function properly
+    
     element.style.background = "rgba(0, 0, 0,0)";
 
     const object = new CSS3DObject(element);
@@ -285,8 +292,8 @@
   }
 
   function updateTextVisibility() {
-    if (!computer) {
-      // console.warn("Model is not loaded yet.");
+    if (!computer || !frontSide) {
+      // console.warn("Model or frontSide is not loaded yet.");
       return;
     }
 
@@ -418,14 +425,18 @@
   function terminal() {
     setTimeout(function () {
       const loading = document.getElementById("loading-screen");
+      const navbar = document.querySelector(".navbar");
 
-      loading.style.display = "none";
+      if (loading) {
+        loading.style.display = "none";
+      }
 
-      var navbar = document.querySelector(".navbar");
-      moveToPosition(4);
-      navbar.style.opacity = "1";
-      navbar.style.visibility = "visible"; // Applied immediately
-      navbar.style.transition = "opacity 0.9s ease, visibility 0s linear 0s";
+      if (navbar) {
+        moveToPosition(4);
+        navbar.style.opacity = "1";
+        navbar.style.visibility = "visible"; // Applied immediately
+        navbar.style.transition = "opacity 0.9s ease, visibility 0s linear 0s";
+      }
 
       updateFrontSideContent(welcome);
     }, 2000);
@@ -435,55 +446,47 @@
   /////////////////////////////////////////////////
 
   onMount(() => {
-
-    
-  
     terminal();
     sceneSetup();
     camerSetUp();
-    // createButtons();
     createCube();
     load3DModel();
 
     animate(webGLRenderer);
     window.addEventListener("resize", () => onWindowResize(webGLRenderer));
-    document
-      .getElementById("instagramIcon")
-      .addEventListener("click", function () {
-        window.open("https://instagram.com/m877ammar", "_blank");
-      });
-    document.getElementById("mail").addEventListener("click", function () {
-      window.location.href =
-        "mailto:mohammedamaar165@gmail.com?subject=SubjectHere&body=BodyContentHere";
-    });
-
-    document.getElementById("git").addEventListener("click", function () {
-      window.open("https://github.com/Mohammed87FS", "_blank");
-    });
     
-    document.getElementById("linked").addEventListener("click", function () {
-      window.open("https://www.linkedin.com/in/mohammed-al-hamadani-a88518302/", "_blank");
-    });
-
-    if (typeof window !== 'undefined') {
-      // Update 'isMobile' based on screen width
-      isMobile = window.innerWidth < 768;
-
-      // Optional: Listen for window resize events to handle dynamic changes
-      const handleResize = () => {
-        isMobile = window.innerWidth < 768;
-      };
-
-      window.addEventListener('resize', handleResize);
-
-      // Cleanup function
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };}
-
-
-
-  
+    // Wait for DOM elements to be available before adding event listeners
+    setTimeout(() => {
+      const instagramIcon = document.getElementById("instagramIcon");
+      const mailIcon = document.getElementById("mail");
+      const gitIcon = document.getElementById("git");
+      const linkedIcon = document.getElementById("linked");
+      
+      if (instagramIcon) {
+        instagramIcon.addEventListener("click", function () {
+          window.open("https://instagram.com/m877ammar", "_blank");
+        });
+      }
+      
+      if (mailIcon) {
+        mailIcon.addEventListener("click", function () {
+          window.location.href =
+            "mailto:mohammedamaar165@gmail.com?subject=SubjectHere&body=BodyContentHere";
+        });
+      }
+      
+      if (gitIcon) {
+        gitIcon.addEventListener("click", function () {
+          window.open("https://github.com/Mohammed87FS", "_blank");
+        });
+      }
+      
+      if (linkedIcon) {
+        linkedIcon.addEventListener("click", function () {
+          window.open("https://www.linkedin.com/in/mohammed-al-hamadani-a88518302/", "_blank");
+        });
+      }
+    }, 100);
   });
 
   ///////////////////////////////////////////////////
@@ -502,39 +505,10 @@
 >
   Loading...
 </div>
-  {#if isMobile}
-  <div
-    style="
-      font-family: 'Press Start 2P';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      color: orange;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: calc(1vw + 1vh + 1vmin);
-      text-align: center;
-      padding: 5%;
-      box-sizing: border-box;
-      z-index: 9999;
-    "
-    class="terminal"
-    id="loading-screen"
-  >
-This website is designed with a 3D interface best enjoyed on a desktop platform. Thank you :)
-  </div>
-  
-  
-  {/if}
-
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div
+  <button
     class:active={activeSection == "profile"}
     class:nav-item={activeSection != "profile"}
     on:click={() => {
@@ -542,8 +516,8 @@ This website is designed with a 3D interface best enjoyed on a desktop platform.
     }}
   >
     About
-  </div>
-  <div
+  </button>
+  <button
     class:active={activeSection == "skills"}
     class:nav-item={activeSection != "skills"}
     on:click={() => {
@@ -551,9 +525,9 @@ This website is designed with a 3D interface best enjoyed on a desktop platform.
     }}
   >
     Skills
-  </div>
+  </button>
 
-  <div
+  <button
     class:active={activeSection == "projects"}
     class:nav-item={activeSection != "projects"}
     on:click={() => {
@@ -561,7 +535,7 @@ This website is designed with a 3D interface best enjoyed on a desktop platform.
     }}
   >
     Projects
-  </div>
+  </button>
 </div>
 
 <div
@@ -571,25 +545,42 @@ This website is designed with a 3D interface best enjoyed on a desktop platform.
 ></div>
 <footer class="footer">
   <img src="/linked2.svg" alt="linkedin Icon" id="linked" style="cursor:pointer;" />
-
   <img src="/git.svg" alt="github Icon" id="git" style="cursor:pointer;" />
-
-  <img src="/email.svg" alt="email Icon" id="mail" style="cursor:pointer;" />
-  <img
-    src="/insta.svg"
-    alt="Instagram Icon"
-    id="instagramIcon"
-    style="cursor:pointer;"
-  />
-
-
-
- 
-
+  <img src="/mail.svg" alt="email Icon" id="mail" style="cursor:pointer;" />
+  <img src="/insta.svg" alt="Instagram Icon" id="instagramIcon" style="cursor:pointer;" />
   <div class="spacer"></div>
 </footer>
 
 <style>
+  /* Prevent horizontal scrolling */
+  :global(body) {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  :global(html) {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  .container {
+    overflow: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Responsive content within 3D scene */
+  :global(.cube-side) {
+    overflow: hidden !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+  }
+  
+  :global(.cube-side *) {
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    box-sizing: border-box !important;
+  }
 
   .spacer {
     width: 4%; /* Adjust this width to control the shift */
@@ -637,7 +628,17 @@ This website is designed with a 3D interface best enjoyed on a desktop platform.
 
     opacity: 0; /* Start invisible */
   }
-  * .nav-item {
+  
+  .navbar button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+  }
+  
+  .nav-item {
     padding: 10px;
     margin: 5px 0; /* Space out the nav items */
     background-color: #000000; /* Bright contrast against the dark navbar */
