@@ -276,8 +276,8 @@
     document.body.style.backgroundColor = "#000";
     document.body.style.color = "#fff";
 
-    // Don't override font-size here - let the responsive clamp() values from contentnew.js work
-    // This allows our carefully crafted responsive typography to function properly
+    // Set a larger base font size for desktop 3D view that works with our responsive content
+    element.style.fontSize = "70px";
     
     element.style.background = "rgba(0, 0, 0,0)";
 
@@ -483,7 +483,7 @@
       
       if (linkedIcon) {
         linkedIcon.addEventListener("click", function () {
-          window.open("https://www.linkedin.com/in/mohammed-al-hamadani-a88518302/", "_blank");
+          window.open("https://www.linkedin.com/in/mohammed-ammar-burhan-al-hamadani-a88518302/", "_blank");
         });
       }
     }, 100);
@@ -498,13 +498,7 @@
 />
 <!-- <link rel="stylesheet" href="../style.css"> -->
 
-<div
-  style=" font-family: 'Press Start 2P'; position: fixed; width: 100%; height: 100%; background: black; color: orange; display: flex; justify-content: center; align-items: center; font-size: 24px; z-index: 9999;"
-  class="terminal"
-  id="loading-screen"
->
-  Loading...
-</div>
+
 
 <div class="navbar">
   <!-- svelte-ignore a11y-click-events-have-key-events -->

@@ -3,9 +3,9 @@ export const mobileWelcome = `
   <h1>Welcome!</h1>
   <p>I'm Mohammed Alhamadani, a Creative Computing student passionate about web development and 3D design.</p>
   <div class="welcome-features">
-    <div class="feature">🎓 Student at FH St. Pölten</div>
-    <div class="feature">💻 Web Developer</div>
-    <div class="feature">🎨 3D Designer</div>
+    <div class="feature">Student at FH St. Pölten</div>
+    <div class="feature">Web Developer</div>
+    <div class="feature">3D Designer</div>
   </div>
 </div>
 `;
@@ -15,7 +15,7 @@ export const mobileAbout = `
   <h1>About Me</h1>
   <div class="info-grid">
     <div class="info-card">
-      <h3>👤 Personal</h3>
+      <h3>Personal</h3>
       <p><strong>Name:</strong> Mohammed Alhamadani</p>
       <p><strong>Study:</strong> Creative Computing</p>
       <p><strong>Location:</strong> FH St. Pölten</p>
@@ -31,7 +31,7 @@ export const mobileAbout = `
     </div>
     
     <div class="info-card">
-      <h3>🎯 Interests</h3>
+      <h3>Interests</h3>
       <ul>
         <li>Technology</li>
         <li>Mathematics</li>
@@ -50,7 +50,7 @@ export const mobileSkills = `
   <div class="skills-container">
     
     <div class="skill-category">
-      <h3>💻 Frontend Development</h3>
+      <h3>Frontend Development</h3>
       <div class="skill-tags">
         <span class="skill-tag">JavaScript</span>
         <span class="skill-tag">Vue.js</span>
@@ -62,7 +62,7 @@ export const mobileSkills = `
     </div>
     
     <div class="skill-category">
-      <h3>⚙️ Backend Development</h3>
+      <h3>Backend Development</h3>
       <div class="skill-tags">
         <span class="skill-tag">Node.js</span>
         <span class="skill-tag">PHP</span>
@@ -73,7 +73,7 @@ export const mobileSkills = `
     </div>
     
     <div class="skill-category">
-      <h3>🎨 Design & Tools</h3>
+      <h3>Design & Tools</h3>
       <div class="skill-tags">
         <span class="skill-tag">UI/UX Design</span>
         <span class="skill-tag">3D Modeling</span>

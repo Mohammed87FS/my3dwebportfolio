@@ -11,7 +11,7 @@
   onMount(() => {
     try {
       // Console message for debugging
-      console.log('🚀 Mohammed Alhamadani Portfolio - Initializing...');
+      console.log('Mohammed Alhamadani Portfolio - Initializing...');
       
       // Unregister service worker in development to fix conflicts
       if ('serviceWorker' in navigator && window.location.hostname.includes('localhost')) {

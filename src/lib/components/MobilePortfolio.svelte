@@ -193,22 +193,22 @@
     <div class="nav-content">
       <button class="nav-btn {activeSection === 'welcome' ? 'active' : ''}"
               on:click={() => selectSection('welcome')}>
-        <span class="nav-icon">🏠</span>
+        <span class="nav-icon"></span>
         Welcome
       </button>
       <button class="nav-btn {activeSection === 'about' ? 'active' : ''}"
               on:click={() => selectSection('about')}>
-        <span class="nav-icon">👤</span>
+        <span class="nav-icon"></span>
         About
       </button>
       <button class="nav-btn {activeSection === 'skills' ? 'active' : ''}"
               on:click={() => selectSection('skills')}>
-        <span class="nav-icon">⚡</span>
+        <span class="nav-icon"></span>
         Skills
       </button>
       <button class="nav-btn {activeSection === 'projects' ? 'active' : ''}"
               on:click={() => selectSection('projects')}>
-        <span class="nav-icon">🚀</span>
+        <span class="nav-icon"></span>
         Projects
       </button>
     </div>
@@ -228,7 +228,7 @@
          target="_blank" 
          class="social-link"
          aria-label="LinkedIn"
-         on:click|preventDefault={() => handleSocialClick('https://www.linkedin.com/in/mohammed-al-hamadani-a88518302/', 'LinkedIn')}>
+         on:click|preventDefault={() => handleSocialClick('https://www.linkedin.com/in/mohammed-ammar-burhan-al-hamadani-a88518302/', 'LinkedIn')}>
         <img src="/linked2.svg" alt="LinkedIn" />
       </a>
       <a href="https://github.com/Mohammed87FS" 
@@ -268,6 +268,32 @@
     font-family: 'Press Start 2P', cursive;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  
+  /* Global overflow prevention for mobile */
+  :global(body) {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+  
+  :global(html) {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+  
+  :global(*) {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Ensure all mobile content fits screen */
+  :global(.mobile-portfolio *) {
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
   }
   
   /* Header Styles */
@@ -398,14 +424,17 @@
     flex: 1;
     margin-top: 100px;
     padding: 1rem;
-    max-width: 1200px;
+    max-width: 100%;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   
   .content-container {
     animation: fadeIn 0.5s ease;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
   
   @keyframes fadeIn {
@@ -752,11 +781,11 @@
     }
     
     :global(.info-grid) {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
     
     :global(.projects-grid) {
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
     
     :global(.skill-category) {
@@ -765,6 +794,25 @@
     }
   }
   
+  @media (max-width: 320px) {
+    /* Extra small screens - prevent any horizontal overflow */
+    .mobile-main {
+      padding: 0.5rem;
+    }
+    
+    :global(.info-grid) {
+      grid-template-columns: 1fr !important;
+    }
+    
+    :global(.projects-grid) {
+      grid-template-columns: 1fr !important;
+    }
+    
+    :global(.mobile-welcome h1) {
+      font-size: 1.5rem !important;
+    }
+  }
+
   @media (orientation: landscape) and (max-height: 500px) {
     .mobile-header {
       padding: 0.5rem 1rem;
