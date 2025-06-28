@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [sveltekit()],
   build: {
-    // Optimize build output
+    // Optimize build output - Cache bust 2025-06-28
     target: "esnext",
     minify: "esbuild",
     sourcemap: false,
