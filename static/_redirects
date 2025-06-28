@@ -1,0 +1,6 @@
+# SPA routing
+/*    /index.html   200
+
+# Force HTTPS
+http://mohammedalhamadani.org/*    https://mohammedalhamadani.org/:splat    301!
+http://www.mohammedalhamadani.org/*    https://mohammedalhamadani.org/:splat    301!

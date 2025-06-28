@@ -4,12 +4,9 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [sveltekit()],
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ["three", "@tweenjs/tween.js"],
-        },
-      },
-    },
+    // Optimize build output
+    target: 'esnext',
+    minify: 'esbuild',
+    sourcemap: false
   },
 });
