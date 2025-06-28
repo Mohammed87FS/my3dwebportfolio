@@ -5,10 +5,24 @@
 [build.environment]
 	NODE_VERSION = "18"
 
+# Prevent caching of build files that might be stale
 [[headers]]
 	for = "/_app/immutable/*"
 	[headers.values]
 		Cache-Control = "public, immutable, max-age=31536000"
+		Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+	for = "/_app/immutable/assets/*.css"
+	[headers.values]
+		Cache-Control = "public, immutable, max-age=31536000"
+		Content-Type = "text/css; charset=utf-8"
+
+[[headers]]
+	for = "/_app/immutable/assets/*.js"
+	[headers.values]
+		Cache-Control = "public, immutable, max-age=31536000"
+		Content-Type = "application/javascript; charset=utf-8"
 
 [[headers]]
 	for = "/*"
