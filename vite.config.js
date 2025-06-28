@@ -5,8 +5,8 @@ export default defineConfig({
   plugins: [sveltekit()],
   build: {
     // Optimize build output
-    target: 'esnext',
-    minify: 'esbuild',
-    sourcemap: false
+    target: "esnext",
+    minify: "esbuild",
+    sourcemap: false,
   },
 });
